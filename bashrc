@@ -27,10 +27,13 @@ set -o vi
 export GOPATH=~/.gohome
 export PATH+=:$GOPATH/bin
 
+# Node
+export PATH+=:$HOME/.node/bin
+export NODE_PATH=$HOME/.node/lib/node_modules:$NODE_PATH
+
 # Ruby
-export GEM_HOME=$HOME/gems
-export PATH=$PATH:$GEM_HOME/bin
-export PATH=$PATH:~/.gem/ruby/2.5.0/bin
+export GEM_HOME="$HOME/.gem"
+export PATH+=:$GEM_HOME/ruby/2.5.0/bin
 
 stty stop undef
 stty start undef
