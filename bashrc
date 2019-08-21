@@ -7,6 +7,7 @@
 alias ls='ls --color=auto -p'
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
+alias cat="bat -p"
 
 export LS_COLORS='di=96'
  
@@ -20,8 +21,10 @@ export EDITOR=/usr/bin/vim
 export LC_TIME=en_GB.UTF-8
 
 #setterm -blength 0
-
 set -o vi
+shopt -s checkwinsize
+stty stop undef
+stty start undef
 
 # Go
 export GOPATH=~/.gohome
@@ -34,9 +37,10 @@ export NODE_PATH=$HOME/.node/lib/node_modules:$NODE_PATH
 # Ruby
 export GEM_HOME="$HOME/.gem"
 export PATH+=:$GEM_HOME/ruby/2.5.0/bin
+export PATH+=:$GEM_HOME/ruby/2.6.0/bin
 
-stty stop undef
-stty start undef
+# Personal binaries
+export PATH+=:~/bin
 
 # ls after a cd
 function cl {
@@ -48,12 +52,9 @@ function cl {
 }
 alias cd=cl
 
-# Start ssh-agent
-eval $(keychain -Q --quiet --eval id_rsa F3C186D1 2>/dev/null)
-export GPG_AGENT_INFO=~/.gnupg/S.gpg-agent:$(pidof gpg-agent):1
-
-export PATH+=:~/bin
-
-shopt -s checkwinsize
-
 eval "$(fasd --init auto)"
+
+source ~/bin/git-cube
+
+# Start ssh-agent
+#eval $(keychain --quiet --eval id_rsa 2>/dev/null)
