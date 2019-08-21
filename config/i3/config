@@ -103,16 +103,16 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Workspace naming
-set $1 1:---•
-set $2 2:--•-
-set $3 3:--••
-set $4 4:-•--
-set $5 5:-•-•
-set $6 6:-••-
-set $7 7:-•••
-set $8 8:•---
-set $9 9:•--•
-set $10 10:•-•-
+set $1  "1"
+set $2  "2"
+set $3  "3"
+set $4  "4"
+set $5  "5"
+set $6  "6"
+set $7  "7"
+set $8  "8"
+set $9  "9"
+set $10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace $1
@@ -180,10 +180,9 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10"
 
 # Volume
-set $sink alsa_output.pci-0000_00_1f.3.analog-stereo
-bindsym XF86AudioLowerVolume exec "pactl set-sink-mute $sink false; pactl set-sink-volume $sink -5%"
-bindsym XF86AudioRaiseVolume exec "pactl set-sink-mute $sink false; pactl set-sink-volume $sink +5%"
-bindsym XF86AudioMute exec "pactl set-sink-mute $sink toggle"
+bindsym XF86AudioLowerVolume exec "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -5%"
+bindsym XF86AudioRaiseVolume exec "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +5%"
+bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 
 # Lock
 bindsym $mod+l exec "i3lock -p default -n -i ~/Sync/backdrops/amiga.png"
@@ -235,3 +234,13 @@ client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
+
+exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'"
+exec --no-startup-id "i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'"
+exec --no-startup-id "i3-msg 'workspace 3; append_layout ~/.config/i3/workspace-3.json'"
+
+exec --no-startup-id "dunst"
+exec --no-startup-id "qterminal"
+exec --no-startup-id "qterminal"
+exec --no-startup-id "firefox"
+exec --no-startup-id "~/bin/workspaces"
