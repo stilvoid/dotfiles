@@ -27,10 +27,10 @@ set background=dark
 colorscheme xoria256
 
 autocmd BufRead,BufNewFile Makefile set noexpandtab
-autocmd BufRead,BufNewFile *.md setlocal spell
-autocmd BufRead,BufNewFile *.md set wrap
-autocmd BufRead,BufNewFile *.md set colorcolumn=
+autocmd BufRead,BufNewFile *.md setlocal spell wrap linebreak nonumber
+autocmd BufRead,BufNewFile *.md set colorcolumn= columns=100
 autocmd BufRead,BufNewFile *.txt setlocal spell
+autocmd BufRead,BufNewFile *.tw2 set wrap
 
 autocmd FileType gitcommit setlocal spell
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -40,6 +40,8 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType c set omnifunc=ccomplete#Complete
 "autocmd FileType * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=<:>
+autocmd BufWritePost *.template silent !rain fmt -w % 2>/dev/null
+autocmd BufWritePost *.tw2 silent !twee2 build % $(basename -s .tw2 %).html 2>&1 >/dev/null
 
 let g:pymode_rope = 0
 
