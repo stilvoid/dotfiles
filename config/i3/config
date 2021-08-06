@@ -10,7 +10,8 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $terminal /usr/bin/qterminal
+#set $terminal /usr/bin/qterminal
+set $terminal /usr/bin/alacritty
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -114,6 +115,15 @@ set $8  "8"
 set $9  "9"
 set $10 "10"
 
+# Assign workspaces to the right monitors
+workspace $1 output HDMI-0
+workspace $2 output HDMI-0
+workspace $3 output HDMI-0
+workspace $4 output HDMI-0
+workspace $5 output HDMI-0
+workspace $6 output DP-5
+workspace $7 output DP-5
+
 # switch to workspace
 bindsym $mod+1 workspace $1
 bindsym $mod+2 workspace $2
@@ -138,16 +148,15 @@ bindsym $mod+Shift+8 move container to workspace $8; workspace $8
 bindsym $mod+Shift+9 move container to workspace $9; workspace $9
 bindsym $mod+Shift+0 move container to workspace $10; workspace $10
 
-# next/prev workspace
-bindsym Mod1+Left workspace prev
-bindsym Mod1+Right workspace next
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "~/bin/exit_menu.sh"
+
+# Launch pasta
+bindsym $mod+Control+v exec "~/bin/pasta"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -187,7 +196,7 @@ bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 # Lock
 bindsym $mod+l exec "i3lock -p default -n -i ~/Sync/backdrops/amiga.png"
 
-# Window specific jazz
+# Client-specific jazz
 for_window [class="Display"] floating enable
 for_window [class="VirtualBox"] floating enable
 for_window [class="Wfica"] floating enable
@@ -195,8 +204,20 @@ for_window [class="qjackctl"] floating enable
 for_window [class="Pinentry"] floating enable
 for_window [class="qsynth"] floating enable
 for_window [class="Xmessage"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Blueberry"] floating enable
 for_window [class="ROX-Filer"] border normal
-new_window pixel 3
+for_window [title="Yagr Bomb"] border normal
+for_window [title="Yagr Bomb"] floating enable
+for_window [class="fs-uae"] floating enable
+for_window [class="ffplay"] floating enable
+for_window [class="qterminal"] border pixel 3
+for_window [class="firefox"] border pixel 3
+for_window [class="firefox" title="Picture-in-Picture"] border pixel 3 sticky enable
+for_window [title="elitedangerous64.exe"] floating enable
+for_window [class="Pdfpc"] floating enable
+for_window [class="1Password"] floating enable
+default_border pixel 3
 
 gaps inner 10
 smart_gaps on
@@ -205,6 +226,9 @@ smart_borders no_gaps
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+        mode dock
+        modifier $mod
+        output HDMI-0
         position top
         status_command i3status
         strip_workspace_numbers yes
@@ -238,9 +262,16 @@ client.background       #ffffff
 exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'"
 exec --no-startup-id "i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'"
 exec --no-startup-id "i3-msg 'workspace 3; append_layout ~/.config/i3/workspace-3.json'"
+exec --no-startup-id "i3-msg 'workspace 4; append_layout ~/.config/i3/workspace-4.json'"
+exec --no-startup-id "i3-msg 'workspace 6; append_layout ~/.config/i3/workspace-6.json'"
+exec --no-startup-id "i3-msg 'workspace 7; append_layout ~/.config/i3/workspace-7.json'"
 
-exec --no-startup-id "dunst"
-exec --no-startup-id "qterminal"
-exec --no-startup-id "qterminal"
+exec --no-startup-id "alacritty"
+exec --no-startup-id "alacritty"
+exec --no-startup-id "alacritty"
 exec --no-startup-id "firefox"
-exec --no-startup-id "~/bin/workspaces"
+exec --no-startup-id "amazon-workspaces"
+exec --no-startup-id "xournalpp"
+exec --no-startup-id "signal-desktop"
+
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
