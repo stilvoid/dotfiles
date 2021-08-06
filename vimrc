@@ -1,7 +1,7 @@
 set complete+=kspell
 set encoding=utf8
 set nowrap
-set colorcolumn=80
+set colorcolumn=120
 set expandtab
 set guioptions-=T
 set guioptions-=r
@@ -23,41 +23,24 @@ set autoread
 set so=3
 
 set background=dark
-"colorscheme molokai
-colorscheme xoria256
 
-autocmd BufRead,BufNewFile Makefile set noexpandtab
-autocmd BufRead,BufNewFile *.md setlocal spell wrap linebreak nonumber
-autocmd BufRead,BufNewFile *.md set colorcolumn= columns=100
-autocmd BufRead,BufNewFile *.txt setlocal spell
-autocmd BufRead,BufNewFile *.tw2 set wrap
+au BufNewFile,BufFilePre,BufRead *.tmpl set filetype=markdown
+au BufNewFile,BufFilePre,BufRead *.txt set filetype=markdown
+au BufNewFile,BufFilePre,BufRead *.template set filetype=yaml
+au BufNewFile,BufFilePre,BufRead *.at set filetype=at
 
-autocmd FileType gitcommit setlocal spell
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType c set omnifunc=ccomplete#Complete
-"autocmd FileType * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=<:>
-autocmd BufWritePost *.template silent !rain fmt -w % 2>/dev/null
-autocmd BufWritePost *.tw2 silent !twee2 build % $(basename -s .tw2 %).html 2>&1 >/dev/null
+autocmd FileType Makefile set noexpandtab
+autocmd FileType markdown setlocal spell wrap linebreak nonumber
+autocmd FileType gitcommit setlocal spell
 
-let g:pymode_rope = 0
+"autocmd BufWritePost *.template silent !rain fmt -w %
+"2>/dev/null
 
 let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
 
-function! ResCur()
-    if line("'\"") <= line("$")
-        normal! g`"
-        return 1
-    endif
-endfunction
-
-augroup resCur
-    autocmd!
-    autocmd BufWinEnter * call ResCur()
-augroup END
+let g:vim_json_syntax_conceal = 0
 
 au BufEnter * call MyLastWindow()
 function! MyLastWindow()
@@ -70,28 +53,7 @@ function! MyLastWindow()
   endif
 endfunction
 
-let g:pymode_folding = 0
-let g:pymode_lint_ignore = "C0110,E302,E501,W0142,C0103"
-let g:vim_markdown_folding_disabled = 1
+"inoremap <Nul> <C-x><C-o>
 
-let g:vim_json_syntax_conceal = 0
-
-inoremap <Nul> <C-x><C-o>
-
-" Magically format tables
-"autocmd FileType markdown inoremap \| \|<ESC>:TableFormat<CR>A
-"autocmd FileType markdown inoremap \| \|<ESC>:Tabularize /\|<CR>A
-
-au BufNewFile,BufRead *.less set filetype=css
-au BufNewFile,BufRead *.babel set filetype=babel
-au BufNewFile,BufRead *.qyp set filetype=qyp
-au BufNewFile,BufRead *.feature set filetype=cucumber
-au BufNewFile,BufRead *.template set filetype=yaml
-
-execute pathogen#infect()
 syntax enable
 filetype plugin indent on
-
-" Color column marker (at 80)
-highlight ColorColumn ctermbg=darkblue
-highlight Normal ctermbg=black
