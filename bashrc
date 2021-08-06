@@ -40,6 +40,7 @@ export PATH+=:$GEM_HOME/ruby/2.5.0/bin
 export PATH+=:$GEM_HOME/ruby/2.6.0/bin
 
 # Personal binaries
+export PATH+=:~/.local/bin
 export PATH+=:~/bin
 
 # ls after a cd
@@ -55,6 +56,17 @@ alias cd=cl
 eval "$(fasd --init auto)"
 
 source ~/bin/git-cube
+#source ~/code/codecommit/builders/aws-menu/aws-menu.sh
+#alias aws=awsm
 
 # Start ssh-agent
 #eval $(keychain --quiet --eval id_rsa 2>/dev/null)
+
+eval "$(direnv hook bash)"
+
+eval "$(thefuck -a)"
+
+complete -C '/usr/bin/aws_completer' aws
+
+eval $(/home/steve/.linuxbrew/bin/brew shellenv)
+[[ -r "/home/steve/.linuxbrew/etc/profile.d/bash_completion.sh" ]] && . "/home/steve/.linuxbrew/etc/profile.d/bash_completion.sh"
